@@ -1,0 +1,170 @@
+---
+title: 10分钟用Cursor制作优雅PPT
+description: 使用Cursor和Claude快速制作专业PPT的实践指南
+---
+
+# 10分钟用Cursor制作优雅PPT
+
+## 背景介绍
+
+还在为制作 PPT 发愁吗？今天我要分享一个超实用的技巧 —— 用 Cursor 和 AI 工具在 10 分钟左右 打造一个专业级的网页版演示文稿。不需要设计经验，不用纠结排版，让 AI 帮你完成大部分工作！
+
+**✨ 这不是普通 PPT，这是未来演示方式**
+- 🎬 精美过渡动画，专业视觉体验
+- ⌨️ 支持键盘导航，演示体验更流畅
+- 🔄 一键分享，随时随地可访问
+
+## 详细教程
+
+1. 安装 Cursor AI 编程软件
+> 理论上 WindSurf / Trae / Cline 也可以，目前测试下来使用相同的 Prompt 在 Trae-Claude3.7—功能一般，视觉中等；bolt.new 一功能完整，视觉很 low，v0.dev :功能缺失，视觉好看
+2. 使用模型 Claude 3.7 thinking（其他模型效果会差一些）
+3. 新建一个文件夹，用 Cursor 打开
+4. （如果有的话）将你 PPT 中使用到的照片、logo 等文件放到 public 文件夹下
+5. 修改 Prompt（详细方法见下面），发给 Cursor（注意使用 Agent 模式）
+6. 然后耐心等待 Cursor 完成！然后在浏览器中打开它生成的 index.html 页面就可以啦🔥！
+7. 如何修改/优化页面？查看它生成的 README.md ，有详细的说明，同时你可以跟 Cursor 提需求
+8. 如何部署？超级简单，使用 [Netlify Drop](https://app.netlify.com/drop) ，拖拽式部署，几秒获得网站链接！见下方详细教程
+
+### 修改 Prompt
+
+1. 在参考提示词后面添加结尾提示词，agent发送“根据 @xx.md 该文件生成新的prompt创建prompt.md”
+2. 生成ppt文件，agent发送“根据 @prompt.md 生成ppt的纯html代码”
+3. 如果对某个页面不满意，可以跟 Cursor 明确指出哪个页面，哪个部分不满意的，让它就修改即可
+
+**结尾提示词**
+
+```
+参考上面 prompt 的格式，帮我生成新的 prompt，主题是介绍 [你的 PPT 主题], 具体内容查看 [网站/整理需求到指定文件]
+
+## 资源
+public/ 文件夹下有 xxx.png ，有 xxx.png（如果有的话）
+
+## 要求
+生成的 prompt 包含 PPT 大纲
+使用 neobrutalism 风格（以下有可供选择的风格，可以先把ppt要求和可供选择的风格，发到agent问推荐的风格，再将风格复制到此处）
+```
+
+**参考提示词**
+
+```
+"""
+# 周周黑客松社区网站演示 PPT
+
+请创建一个完整的HTML演示网站，功能类似PowerPoint演示文稿，用于展示周周黑客松社区。请严格按照以下规范执行：
+
+## 内容要点
+- 分析观众需求，围绕主题、定义关键的 PPT 内容，确保信息架构合理
+- 使用 public 文件夹（如有）的照片（如 logo / 微信公众号二维码等）
+
+## 具体交付物
+一个完整的中文HTML演示网站，包含以下文件：
+- index.html（主入口文件，使用iframe加载各幻灯片且没有边框）
+- 每张幻灯片独立 html 文件（例如：intro.html, about.html... contact.html）
+- 提供README文档说明项目结构与使用方法
+
+## 设计规范
+- 使用现代化设计语言、良好的视觉体验，美观的过渡动画与交互元素，高保真设计，高端大气
+- 使用 Tailwind CSS， FontAwesome/bootstrap 等开源 UI 组件让界面更加精美、接近真实的网站设计
+- 响应式布局，页面比例接近 PPT 的16:9，使用一致的设计语言和层次结构，页面可滚动查看
+- 使用真实UI图片（如 Unsplash、 Apple官方 UI 等资源）
+
+## 交互功能
+1. 左侧导航菜单，支持隐藏/打开
+2. 键盘导航支持（左右方向键切换幻灯片）
+3. 全屏显示功能（带图标按钮）
+4. 每张幻灯片右下角包含浮动的导航指示器
+
+## 技术规范
+1. 使用纯HTML、CSS 和 JavaScript
+2. 使用CDN引入依赖，不使用nodejs/npm
+3. 响应式设计，适配桌面和平板设备
+
+请确保最终作品具有专业的视觉效果，流畅的用户体验。
+"""
+```
+
+**可供选择的风格**
+
+```
+- Neobrutalism（新野兽派）第1个案例的风格
+- Bento Grid Design（便当盒设计）
+- Apple Design（苹果设计语言）
+- Material Design（材料设计）
+- Flat Design（扁平化设计）
+- Neumorphism（新拟物设计）
+- Glassmorphism（玻璃态设计）
+- Skeuomorphism（拟物化设计）
+- Minimalism（极简主义）
+- Retro/Vintage（复古风格）
+- Cyberpunk（赛博朋克）
+- Memphis Design（孟菲斯设计）
+- Bauhaus（包豪斯风格）
+- Brutalism（野兽派）
+- Y2K Aesthetic（千禧年美学）
+- Vaporwave（蒸汽波）
+- Corporate Memphis（企业孟菲斯）
+- Dark Mode（暗黑模式）
+- Claymorphism（粘土态设计）
+- Swiss/International Style（瑞士国际风格）
+- Atomic Design（原子设计）
+- Monochrome（单色设计）
+- Isometric（等距设计）
+- Gradient（渐变设计）
+- Animated UI（动画界面）
+- 3D Design（三维设计）
+- Handcrafted/Doodle（手绘风格）
+- Micro-interactions（微交互）
+- Asymmetrical Layouts（不对称布局）
+- Organic Design（有机设计）
+```
+
+> 风格也可以根据自己的想法设计，也可参考以下等网站
+
+```
+Dribbble https://dribbble.com/
+特点：全球设计师社交平台，以“小图标”形式展示作品，涵盖 UI、插画、动效等，作品质量高且风格多样。
+适用场景：寻找视觉风格灵感、追踪流行趋势、参与设计挑战活动。
+
+Behance https://www.behance.net/galleries/ui-ux
+特点：Adobe 旗下社区，作品覆盖全领域（网页、APP、品牌等），展示完整项目流程，适合深度研究。
+适用场景：学习完整案例设计逻辑，分析行业标杆作品。
+
+Awwwards https://www.awwwards.com/websites/ui-design/
+特点：评选全球优秀网页设计，注重创新性与交互体验，提供趋势分析和竞赛信息。
+适用场景：网页设计灵感、前沿技术（如 3D、视差滚动）参考。
+```
+
+### 部署 / 分享
+方法 1：将整个文件夹发给朋友，然后让 ta 用浏览器打开 index.html 页面
+方法 2：部署成网站给朋友访问
+- 访问网站 ：https://app.netlify.com/drop
+- 然后将包含 index.html 整个文件夹拖到页面中，然后 netlify 就会给你返回一个可访问的地址啦，例如：https://neon-salmiakki-80d5f3.netlify.app/
+> 如果只有一个文件，将该文件重命名为index.html，放入文件夹，一起拖到页面
+
+## 🔥 真实案例展示
+> 以下案例都是使用 Cursor，1 到 2 次对话，在 10~15分钟内完成并部署！
+
+### 基于活动推文链接等
+
+网址：https://dynamic-frangipane-4d5949.netlify.app/
+模式：提供了 AI + Web3 活动的网站给 Cursor，指定了 Neobrutalism 风格。
+
+![案例展示](/images/10min-cursor-elegant-ppt001.png)
+![案例展示](/images/10min-cursor-elegant-ppt002.png)
+
+### 基于MCP教程网站
+
+网址：https://neon-salmiakki-80d5f3.netlify.app/
+模式：提供了 MCP 的网站让它生成（教程下面的原始 prompt 可以复刻这个效果） + 社区的 logo 照片
+
+![案例展示](/images/10min-cursor-elegant-ppt003.png)
+![案例展示](/images/10min-cursor-elegant-ppt004.png)
+
+### 基于纯文本等资料
+
+网址：https://visionary-alfajores-11c57f.netlify.app/
+模式：纯文字描述社区和 PPT 内容 + 提供 logo 
+
+![案例展示](/images/10min-cursor-elegant-ppt005.png)
+![案例展示](/images/10min-cursor-elegant-ppt006.png)

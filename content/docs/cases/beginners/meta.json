@@ -2,10 +2,6 @@
   "name": "入门级教程",
   "defaultOpen": true,
   "pages": [
-    "15min-nextjs-fullstack-website-with-deepseek-api",
-    "1h-website",
-    "AI-coding-GDC",
-    "ai-meditation-website-generation",
-    "knowledge-payment-website-example"
+    "..."
   ]
 }

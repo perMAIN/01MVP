@@ -2,6 +2,9 @@
     "title": "AI编程指南",
     "root": true,
     "pages": [
+        "beginners",
+        "intermediate",
+        "advanced",
         "..."
     ]
 }
