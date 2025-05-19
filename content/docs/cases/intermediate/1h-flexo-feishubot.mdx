@@ -1,0 +1,271 @@
+---
+title: 实现多功能聊天机器人
+description: 使用飞书群聊机器人做示范
+---
+
+# 1小时实现多功能飞书群聊机器人
+
+本教程将带你快速实现一个可以在飞书外部群聊中使用的多功能机器人，包括：
+- 夸夸机器人
+- AI 聊天机器人
+- 打卡统计机器人
+
+![机器人示意图](/images/flexo-feishubot.001.png)
+
+## 前提条件
+1. 需要企业认证后的飞书账号，才能让机器人在外部群聊与用户对话。
+2. 注意：API 有免费额度限制，超出后需付费。
+
+> 免费额度有限，建议合理规划机器人的调用频率。
+
+## 教程与资料
+- [详细教程（含两种机器人类型）](https://github.com/Beatrueman/FeishuBot)
+
+### 步骤一：创建应用
+- 访问 [飞书开放平台](https://open.feishu.cn/app) 创建你的机器人应用。
+
+### 步骤二：开通权限
+
+![权限设置](/images/flexo-feishubot.002.png)
+
+### 步骤三：允许对外
+
+![允许对外](/images/flexo-feishubot.003.png)
+
+### 步骤四：在群聊中添加机器人
+
+![添加机器人到群聊](/images/flexo-feishubot.004.png)
+
+---
+
+## 如何开发
+- 官方文档：[飞书服务端 SDK 文档](https://open.feishu.cn/document/server-docs/server-side-sdk)
+
+### 最简单的回声机器人案例
+- 官方案例仓库：[lark-samples](https://github.com/larksuite/lark-samples)
+
+#### 快速体验
+```bash
+pip install lark-oapi python-socks
+APP_ID=xxx APP_SECRET=xxx python main.py
+```
+
+运行后，终端会输出如下日志：
+
+![运行日志](/images/flexo-feishubot.006.png)
+
+### 推荐：完整多功能机器人案例
+- [LangBot 飞书机器人教程](https://docs.langbot.app/deploy/platforms/lark.html)
+
+---
+
+## 踩坑与注意事项
+
+- API 免费额度仅 1 万次，聊天类机器人很快会用完。
+- 价格详情：[API 调用量与价格](https://open.larkoffice.com/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/platform-updates-/custom-app-api-call-limit)
+- 除基础免费版外，其他飞书版本对企业自建应用 API 调用量不做限制。
+- [飞书服务价格](https://www.feishu.cn/service)
+
+> 个人版价格较高，企业可根据需求选择合适版本。
+
+---
+
+## 有趣的开源案例
+- [markdown 文档导入为飞书在线文档](https://github.com/jakerqin/markdown2feishuDoc)
+- [简单回复消息的飞书 bot 案例](https://github.com/cyrus28214/feishu-bot)
+- [LangBot：高 Star 的机器人框架，支持飞书](https://github.com/RockChinQ/LangBot)
+
+---
+
+## 飞书机器人类型简介
+
+飞书机器人分为两种：
+- **自定义机器人**：只能在群聊中使用，功能较为固定，主要用于消息推送。
+- **应用机器人**：功能丰富，支持对话互动等多种能力，需要企业账户。
+
+详细说明见：[飞书机器人类型教程](https://github.com/Beatrueman/FeishuBot)
+
+---
+
+## 开发流程总结
+
+1. 创建应用：[飞书开放平台](https://open.feishu.cn/app)
+2. 添加权限
+3. 允许对外
+4. 群聊中添加机器人
+
+---
+
+## 代码开发与环境变量
+
+### 最简单的回声机器人
+- 官方案例仓库：[lark-samples](https://github.com/larksuite/lark-samples)
+
+#### 环境变量配置
+```env
+APP_ID=xxx
+APP_SECRET=xxx
+```
+
+#### 运行
+```bash
+python main.py
+```
+
+---
+
+## 进阶开发建议
+
+1. 设计机器人服务架构，明确每月开发者活动主题。
+2. 结合 @function.md 设计功能，生成代码。
+3. 生成 SQL 文件，创建数据库，配置 .env。
+4. 持续优化代码，确保逻辑清晰。
+5. 优化机器人设计文档，便于后续维护。
+
+> 如需修改 @function.md，请先讨论具体需求，确认后再修改。
+
+---
+
+## 云服务器部署 Python 服务指南
+
+本节介绍如何在云服务器上部署和持续运行你的飞书机器人 Python 程序。
+
+### 1. 准备服务器环境
+
+```bash
+sudo apt update && sudo apt upgrade -y  # 更新系统包
+sudo apt install -y git python3 python3-pip python3-venv  # 安装必要工具
+```
+
+### 2. 包管理器 uv（可选）
+
+#### Windows 安装
+```powershell
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+#### Linux 安装
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+> 也可以在 Python 虚拟环境下用 pip 安装 uv：
+> ```bash
+> pip install uv
+> ```
+
+### 3. 克隆 GitHub 代码
+
+```bash
+git clone <你的项目地址>
+cd <项目目录>
+```
+
+### 4. 创建并激活虚拟环境
+
+```bash
+python3 -m venv venv  # 创建虚拟环境
+source venv/bin/activate  # 激活虚拟环境
+deactivate  # 退出虚拟环境
+```
+
+### 5. 安装依赖
+
+```bash
+pip install -r requirements.txt  # 安装依赖
+pip install pipreqs  # 安装 pipreqs 工具
+pipreqs ./ --encoding=utf8 --force  # 生成 requirements.txt
+```
+
+#### 扩展：使用 conda 创建虚拟环境
+
+```bash
+conda create --name myenv python=3.8  # 创建
+conda activate myenv  # 激活
+conda env list  # 查看所有环境
+conda remove --name myenv --all  # 删除
+```
+
+> **常见问题**
+> - 创建失败 CondaValueError: Malformed version string '~': invalid character(s).
+>   - 检查 C:\Users\xxx\.condarc 文件内容，建议将 https 改为 http，或直接清空内容。
+>   - 示例 .condarc：
+>     ```yaml
+>     ssl_verify: false
+>     channels:
+>       - conda-forge
+>       - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+>       - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+>       - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
+>       - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/msys2/
+>       - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/bioconda/
+>       - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/menpo/
+>       - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/
+>       - defaults
+>     show_channel_urls: true
+>     ```
+
+### 6. 配置环境变量
+
+```bash
+cp .env.example .env  # 创建 .env 文件
+vim .env  # 编辑 .env
+iconv -f UTF-16LE -t UTF-8 .env > .env.utf8  # 解决编码问题
+mv .env.utf8 .env
+file -i .env  # 应显示 .env: text/plain; charset=utf-8
+```
+
+### 7. 测试运行
+
+确保虚拟环境已激活：
+```bash
+source venv/bin/activate
+python main.py  # 启动服务，检查依赖和代码
+```
+
+依赖包版本管理：
+```bash
+pip show lark_oapi  # 查看版本
+pip uninstall -y lark-oapi
+pip install lark-oapi==1.4.13  # 指定版本
+```
+
+### 8. 设置服务持久化运行（Supervisor）
+
+#### 安装 Supervisor
+```bash
+sudo apt install -y supervisor
+```
+
+#### 创建 Supervisor 配置
+```bash
+sudo vim /etc/supervisor/conf.d/feishu-bot.conf
+```
+
+内容示例：
+```ini
+[program:feishu-bot]
+directory=/home/ubuntu/projects/feishu-bot
+command=/home/ubuntu/projects/feishu-bot/venv/bin/python main.py
+autostart=true
+autorestart=true
+stderr_logfile=/var/log/feishu-bot.err.log
+stdout_logfile=/var/log/feishu-bot.out.log
+user=ubuntu
+environment=PYTHONUNBUFFERED=1
+```
+
+#### 启动服务
+```bash
+sudo supervisorctl reread  # 重新加载配置
+sudo supervisorctl update
+sudo supervisorctl start feishu-bot  # 启动服务
+```
+
+#### 检查服务状态
+```bash
+sudo supervisorctl status feishu-bot
+sudo tail -f /var/log/feishu-bot.out.log
+```
+
+> 这样可以保证你的机器人服务在云服务器上持续稳定运行。

@@ -1,0 +1,111 @@
+---
+title: 10分钟快速实现网页转小程序
+description: 使用微信小程序的WebView技术的实践指南
+---
+
+# 10分钟将 Web 网页转为微信小程序
+
+## 1. 配置业务域名
+![业务域名配置示意图](/images/10min-web-to-wechatProgram.001.png)
+
+1. 具体指引：[微信官方文档](https://developers.weixin.qq.com/community/develop/doc/0000a423770ed0c6d80323d6c6b009)
+2. 服务器可用 Netlify、Vercel 等，需添加「随机字符+.txt」校验文件，等待 DNS 更新。
+
+> 微信团队通过校验文件确认域名归属。步骤如下：
+
+- 微信生成校验文件，文件名如 `abcabc.txt`，内容为随机字符串。
+- 开发者将校验文件上传到服务器，确保可通过 `域名/校验文件名` 访问。
+- 在微信平台点击校验，微信服务器会请求该文件并比对内容。
+- 校验通过后，后续新增域名一般无需再次校验（特殊情况除外）。
+- 同一业务下，校验文件名和内容不会变化。
+
+## 2. 可能出现的问题
+1. 个人账号小程序无法嵌入网页，仅企业认证账号可用。
+2. 域名是否已备案？可用 [DNSPod 域名检测工具](https://www.dnspod.cn/tools) 检查。
+3. 其他问题及解决方案：
+
+- 检查网络环境，尝试不同网络。
+- 清除浏览器缓存，换用不同浏览器。
+- 确认校验文件地址可访问，内容无误。
+- 检查域名是否符合要求，已备案且未被拦截。
+- 若仍有问题，前往微信云托管社区反馈或提交工单。
+
+## 3. 开发
+
+> 你可以用 Cursor 继续以下对话
+
+### 快速开始
+
+我想将 https://xxx.cn 网页转为微信小程序，用 WebView 实现。请创建一个微信小程序项目目录结构，用于开发该 WebView 项目。
+
+### 配置 appid
+
+在生成的代码库下的 `project.config.json` 添加微信小程序的 `appid`。
+
+### 注意事项
+
+- 微信小程序 WebView 仅能打开已配置的业务域名。
+- 每个小程序最多可添加 10 个业务域名。
+- WebView 内网页无法使用微信支付、分享等功能。
+
+> 如需更好体验，建议核心功能用原生实现，或用小程序云开发实现后端功能，并针对小程序优化界面设计。
+
+- 若网站有登录功能，需考虑小程序与网站间的用户身份共享。
+
+## 4. 上线流程
+
+1. 微信开发者工具上传，填写版本与说明。
+2. 微信公众平台管理——版本管理——开发版本——提交审核，完成备案及相关信息填写。
+
+## 5. 其他
+
+### 实现转发
+
+在 JS 中添加以下代码（仅支持转发给好友，朋友圈转发另外处理）：
+
+```js
+Page({
+  onShareAppMessage() {
+    return {
+      title: '自定义分享标题',
+      path: '/pages/index/index',
+      imageUrl: '/images/share.jpg'
+    };
+  }
+});
+```
+
+### 用户隐私问题
+
+![用户隐私协议说明](/images/10min-web-to-wechatProgram.002.png)
+
+根据实际情况选择对应隐私协议说明。
+
+### 微信登录
+
+- 参考：[微信网页开发 / 网页授权](https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html)
+- 仅服务号且通过微信认证后可开通微信登录。
+
+![开通微信登录功能](/images/10min-web-to-wechatProgram.004.png)
+
+```
+agent要求添加微信登录功能，会结合平台设计登录效果，但只是模拟而不能微信登录，可以通过讨论出如何实现
+
+agent直接访问微信登录文章，这个网站来实现微信登录
+```
+
+#### 环境变量
+
+```env
+# 微信登录
+NEXT_PUBLIC_APP_URL=https://xxx.com
+
+# 微信公众号配置
+NEXT_PUBLIC_WECHAT_APP_ID=wxxxxx
+WECHAT_APP_ID=wxxxx
+WECHAT_APP_SECRET=xxxx
+```
+
+公众号的 appid 和 appsecret 需妥善保管。
+
+![公众号配置说明](/images/10min-web-to-wechatProgram.005.png)

@@ -1,13 +1,13 @@
 import './global.css';
 import { RootProvider } from 'fumadocs-ui/provider';
-import { Inter } from 'next/font/google';
+// import { Inter } from 'next/font/google'; // 移除 Google 字体
 import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import { Banner } from 'fumadocs-ui/components/banner';
 
-const inter = Inter({
-  subsets: ['latin'],
-});
+// const inter = Inter({
+//   subsets: ['latin'],
+// });
 
 // 配置网站元数据
 export const metadata: Metadata = {
@@ -27,8 +27,8 @@ export const metadata: Metadata = {
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={inter.className} suppressHydrationWarning>
-      <body className="flex flex-col min-h-screen">
+    <html lang="en" /* className={inter.className} */ suppressHydrationWarning>
+      <body className="flex flex-col min-h-screen" style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif" }}>
         <Banner id="site-under-construction" variant="rainbow">
           🚧 网站正在建设中，部分内容由 AI 生成，如有错误，请见谅 🚧
         </Banner>
